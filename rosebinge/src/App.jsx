@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Navigation } from "./components/Navigation";
+import Navigation from "./components/Navigation";
 import HeroSection from "./components/HeroSection";
 import Button from "./components/Button";
 import { Bookmark } from "lucide-react";
-
+import {
+  fetchFeaturedMovies,
+  fetchTrendingMovies,
+  fetchMoviesByGenre,
+} from "./omdbapi";
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [currentView, setCurrentView] = useState("landing");

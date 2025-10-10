@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Search, User, Moon, Sun, Menu, X, Bookmark } from "lucide-react";
-import { Button } from "./Button";
+import Button from "./Button";
 
 /**
  * Navigation component with search and menu
  */
-export function Navigation({
+export default function Navigation({
   darkMode,
   setDarkMode,
   onSearch,
