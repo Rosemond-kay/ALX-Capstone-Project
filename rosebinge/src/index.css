@@ -1,0 +1,67 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+:root {
+  --background: #fde2e4; /* soft rose */
+  --foreground: #2b2d42; /* dark blue-gray */
+  --card: #ffffff;
+  --card-foreground: #2b2d42;
+  --primary: #b8336a;
+  --primary-foreground: #ffffff;
+  --secondary: #ffd166;
+  --muted: #f8c2c4;
+  --border: rgba(184, 51, 106, 0.12);
+  --input-background: #ffffff;
+  --ring: #b8336a;
+}
+
+/* Dark mode root (add .dark class to <html> or <body>) */
+.dark {
+  --background: #1a1a1d;
+  --foreground: #eaeaea;
+  --card: #2b2d42;
+  --card-foreground: #eaeaea;
+  --primary: #e63946;
+  --secondary: #ff6f91;
+  --muted: #3b3d52;
+  --border: rgba(255, 255, 255, 0.06);
+  --input-background: #2b2d42;
+  --ring: #e63946;
+}
+
+/* Apply tokens to utility classes */
+.bg-background {
+  background-color: var(--background);
+}
+.text-foreground {
+  color: var(--foreground);
+}
+.bg-card {
+  background-color: var(--card);
+}
+.text-card-foreground {
+  color: var(--card-foreground);
+}
+
+.border-border {
+  border-color: var(--border);
+}
+.bg-input-background {
+  background-color: var(--input-background);
+}
+.text-muted-foreground {
+  color: rgba(107, 109, 130, 0.9);
+}
+
+/* Focus ring utility */
+.focus-ring:focus {
+  box-shadow: 0 0 0 3px var(--ring) / 30;
+}
+
+/* small helpers */
+:root {
+  --radius-lg: 12px;
+}
+.rounded-2xl {
+  border-radius: var(--radius-lg);
+}
