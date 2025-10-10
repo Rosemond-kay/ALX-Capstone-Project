@@ -3,20 +3,20 @@ import React from "react";
 /**
  * Badge component for displaying labels and tags
  */
-export function Badge({
+export default function Badge({
   children,
   variant = "default",
   className = "",
   ...props
 }) {
   const baseStyles =
-    "inline-flex items-center rounded-md px-2.5 py-0.5 transition-colors";
+    "inline-flex items-center rounded-md px-2.5 py-0.5 text-sm font-medium transition-colors";
 
   const variants = {
-    default: "bg-primary text-primary-foreground",
-    secondary: "bg-secondary text-secondary-foreground",
-    outline: "border border-border bg-transparent",
-    destructive: "bg-destructive text-destructive-foreground",
+    default: "bg-blue-600 text-white",
+    secondary: "bg-gray-200 text-gray-900",
+    outline: "border border-gray-300 bg-transparent text-gray-800",
+    destructive: "bg-red-600 text-white",
   };
 
   const classes = `${baseStyles} ${

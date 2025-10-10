@@ -1,7 +1,7 @@
 import React from "react";
 import { Play, Plus, Info, Star } from "lucide-react";
-import { Button } from "./Button";
-import { Badge } from "./Badge";
+import Button from "./Button";
+import Badge from "./Badge";
 
 /**
  * Hero Section component for featured movie
