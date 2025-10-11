@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navigation from "./components/Navigation";
 import HeroSection from "./components/HeroSection";
 import MovieCard from "./components/MovieCard";
+import { MovieDetailsModal } from "./components/MovieDetailsModal";
 import { MovieList } from "./components/MovieList";
 import Button from "./components/Button";
 import { Bookmark } from "lucide-react";
@@ -189,6 +190,19 @@ export default function App() {
                   onAddToWatchlist={handleAddToWatchlist}
                   watchlist={watchlist}
                   variant="featured"
+                />
+
+                {/* Movie Details Modal */}
+                <MovieDetailsModal
+                  movie={selectedMovie}
+                  isOpen={!!selectedMovie}
+                  onClose={() => setSelectedMovie(null)}
+                  onAddToWatchlist={handleAddToWatchlist}
+                  isInWatchlist={
+                    selectedMovie
+                      ? watchlist.some((w) => w.id === selectedMovie.id)
+                      : false
+                  }
                 />
               </>
             )}

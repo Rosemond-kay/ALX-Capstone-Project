@@ -53,7 +53,7 @@ export function HeroSection({
             >
               {featuredMovie.year}
             </Badge>
-            <Badge variant="secondary" className="bg-black/50 text-white">
+            <Badge variant="secondary" className="bg-black/50 text-rose">
               <Star className="h-3 w-3 mr-1 fill-yellow-400 text-yellow-400" />
               {featuredMovie.rating.toFixed(1)}
             </Badge>
