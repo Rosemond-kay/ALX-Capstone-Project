@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Navigation from "./components/Navigation";
 import HeroSection from "./components/HeroSection";
+import MovieCard from "./components/MovieCard";
+import { MovieList } from "./components/MovieList";
 import Button from "./components/Button";
 import { Bookmark } from "lucide-react";
 import {
@@ -99,12 +101,14 @@ export default function App() {
         )
       : null;
 
+  //Handle search
   const handleSearch = (query) => {
     if (query.trim()) {
       setCurrentView("search");
     }
   };
 
+  //Handle adding to watchlist
   const handleAddToWatchlist = (movie) => {
     setWatchlist((prev) => {
       const isAlreadyInWatchlist = prev.some((w) => w.id === movie.id);
@@ -116,6 +120,7 @@ export default function App() {
     });
   };
 
+  //Handle mobile tab changes
   const handleMobileTabChange = (tab) => {
     setMobileActiveTab(tab);
     switch (tab) {
@@ -174,6 +179,16 @@ export default function App() {
                       ? watchlist.some((w) => w.id === featuredMovie.id)
                       : false
                   }
+                />
+
+                {/* Featured Movies List */}
+                <MovieList
+                  movies={featuredMovies.slice(0, 6)}
+                  title="Best Rated Movies"
+                  onSelectMovie={setSelectedMovie}
+                  onAddToWatchlist={handleAddToWatchlist}
+                  watchlist={watchlist}
+                  variant="featured"
                 />
               </>
             )}

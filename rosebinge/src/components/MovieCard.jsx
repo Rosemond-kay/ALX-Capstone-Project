@@ -1,10 +1,15 @@
+import React from "react";
 import { Star, Plus, Play } from "lucide-react";
-import { Button } from "../ui/button";
-import { Badge } from "../ui/badge";
-import { Card, CardContent } from "../ui/card";
-import { ImageWithFallback } from "../figma/ImageWithFallback";
+import Button from "./Button";
+import Badge from "./Badge";
+import { Card, CardContent } from "./Card";
+import ImageWithFallback from "./ImageWithFallback";
 
-export function MovieCard({
+/**
+ * Movie Card Component
+ * Displays a movie poster with rating, year, and hover effects
+ */
+export default function MovieCard({
   movie,
   onSelect,
   onAddToWatchlist,
@@ -57,7 +62,7 @@ export function MovieCard({
             className="bg-black/70 text-white border-0"
           >
             <Star className="h-3 w-3 mr-1 fill-yellow-400 text-yellow-400" />
-            {movie.rating?.toFixed(1)}
+            {movie.rating.toFixed(1)}
           </Badge>
         </div>
 
@@ -74,7 +79,9 @@ export function MovieCard({
 
       <CardContent className="p-4">
         <h3 className="font-semibold truncate mb-1">{movie.title}</h3>
-        <p className="text-sm text-muted-foreground mb-2">{movie.genre}</p>
+        <p className="text-sm text-muted-foreground mb-2">
+          {movie.genre.split(",")[0]}
+        </p>
         {variant === "featured" && (
           <p className="text-sm text-muted-foreground line-clamp-2">
             {movie.synopsis}
