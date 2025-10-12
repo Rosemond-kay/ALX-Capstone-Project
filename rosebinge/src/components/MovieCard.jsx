@@ -57,7 +57,10 @@ export default function MovieCard({
 
         {/* Rating Badge */}
         <div className="absolute top-2 left-2">
-          <Badge variant="secondary" className="bg-black/70 text- border-0">
+          <Badge
+            variant="secondary"
+            className="bg-black/70 text-secondary border-0"
+          >
             <Star className="h-3 w-3 mr-1 fill-yellow-400 text-yellow-400" />
             {movie.rating.toFixed(1)}
           </Badge>

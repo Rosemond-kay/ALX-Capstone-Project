@@ -4,6 +4,7 @@ import HeroSection from "./components/HeroSection";
 import MovieCard from "./components/MovieCard";
 import { MovieDetailsModal } from "./components/MovieDetailsModal";
 import { MovieList } from "./components/MovieList";
+import { SearchPage } from "./components/SearchPage";
 import Button from "./components/Button";
 import { Bookmark } from "lucide-react";
 import {
@@ -192,6 +193,15 @@ export default function App() {
                   variant="featured"
                 />
 
+                {/* Trending Movies */}
+                <MovieList
+                  movies={trendingMovies}
+                  title="Trending Now"
+                  onSelectMovie={setSelectedMovie}
+                  onAddToWatchlist={handleAddToWatchlist}
+                  watchlist={watchlist}
+                />
+
                 {/* Movie Details Modal */}
                 <MovieDetailsModal
                   movie={selectedMovie}
@@ -204,9 +214,60 @@ export default function App() {
                       : false
                   }
                 />
+
+                {/* Explore Button */}
+                <div className="text-center">
+                  <Button
+                    size="lg"
+                    onClick={() => setCurrentView("dashboard")}
+                    className="bg-primary hover:bg-primary/90"
+                  >
+                    Explore All Movies
+                  </Button>
+                </div>
               </>
             )}
           </div>
+        )}
+
+        {/* Dashboard */}
+        {currentView === "dashboard" && (
+          <div className="space-y-8 p-4 lg:p-8">
+            {/* Category Tabs */}
+            <CategoryTabs
+              activeCategory={activeCategory}
+              onCategoryChange={setActiveCategory}
+            />
+
+            {/* Movies Grid */}
+            {isLoading ? (
+              <div className="text-center py-12">
+                <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent"></div>
+                <p className="mt-4 text-muted-foreground">Loading movies...</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+                {categoryMovies.map((movie) => (
+                  <MovieCard
+                    key={movie.id}
+                    movie={movie}
+                    onSelect={setSelectedMovie}
+                    onAddToWatchlist={handleAddToWatchlist}
+                    isInWatchlist={watchlist.some((w) => w.id === movie.id)}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Search Page */}
+        {currentView === "search" && (
+          <SearchPage
+            onSelectMovie={setSelectedMovie}
+            onAddToWatchlist={handleAddToWatchlist}
+            watchlist={watchlist}
+          />
         )}
       </main>
     </div>
