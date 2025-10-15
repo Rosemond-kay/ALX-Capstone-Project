@@ -270,6 +270,43 @@ export default function App() {
             watchlist={watchlist}
           />
         )}
+
+        {/* Watchlist */}
+        {currentView === "watchlist" && (
+          <div className="space-y-8 p-4 lg:p-8">
+            <div className="flex items-center space-x-3">
+              <Bookmark className="h-6 w-6" />
+              <h2 className="text-2xl font-bold">My Watchlist</h2>
+              <span className="bg-primary text-primary-foreground px-2 py-1 rounded-full text-sm">
+                {watchlist.length}
+              </span>
+            </div>
+
+            {watchlist.length > 0 ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+                {watchlist.map((movie) => (
+                  <MovieCard
+                    key={movie.id}
+                    movie={movie}
+                    onSelect={setSelectedMovie}
+                    onAddToWatchlist={handleAddToWatchlist}
+                    isInWatchlist={true}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <Bookmark className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
+                <p className="text-muted-foreground mb-4">
+                  Your watchlist is empty
+                </p>
+                <Button onClick={() => setCurrentView("dashboard")}>
+                  Discover Movies
+                </Button>
+              </div>
+            )}
+          </div>
+        )}
       </main>
 
       {/* Mobile Bottom Navigation */}
