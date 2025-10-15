@@ -4,6 +4,7 @@ import HeroSection from "./components/HeroSection";
 import MovieCard from "./components/MovieCard";
 import { MovieDetailsModal } from "./components/MovieDetailsModal";
 import { MovieList } from "./components/MovieList";
+import { MobileBottomNav } from "./components/MobileBottomNav";
 import { SearchPage } from "./components/SearchPage";
 import Button from "./components/Button";
 import { Bookmark } from "lucide-react";
@@ -270,6 +271,15 @@ export default function App() {
           />
         )}
       </main>
+
+      {/* Mobile Bottom Navigation */}
+      <MobileBottomNav
+        activeTab={mobileActiveTab}
+        onTabChange={handleMobileTabChange}
+        watchlistCount={watchlist.length}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+      />
     </div>
   );
 }

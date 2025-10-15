@@ -31,7 +31,7 @@ export default function Navigation({
           <div className="flex items-center">
             <button
               onClick={onHomeClick}
-              className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+              className="text-3xl font-bold bg-gradient-to-r from-red-600 via-yellow-500 to-pink-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
             >
               RoseBinge
             </button>
@@ -41,7 +41,10 @@ export default function Navigation({
           <div className="hidden md:flex flex-1 max-w-lg mx-8">
             <form onSubmit={handleSearchSubmit} className="w-full">
               <div className="relative">
+                {/* Search Icon */}
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+
+                {/* Input Field */}
                 <input
                   type="text"
                   placeholder="Search movies and shows..."
