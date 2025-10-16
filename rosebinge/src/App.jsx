@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navigation from "./components/Navigation";
 import HeroSection from "./components/HeroSection";
+import { CategoryTabs } from "./components/CategoryTabs";
 import MovieCard from "./components/MovieCard";
 import { MovieDetailsModal } from "./components/MovieDetailsModal";
 import { MovieList } from "./components/MovieList";
@@ -275,8 +276,10 @@ export default function App() {
         {currentView === "watchlist" && (
           <div className="space-y-8 p-4 lg:p-8">
             <div className="flex items-center space-x-3">
-              <Bookmark className="h-6 w-6" />
-              <h2 className="text-2xl font-bold">My Watchlist</h2>
+              <Bookmark className="h-6 w-6 dark:text-[#b8336a]" />
+              <h2 className="text-2xl font-bold dark:text-[#b8336a]">
+                My Watchlist
+              </h2>
               <span className="bg-primary text-primary-foreground px-2 py-1 rounded-full text-sm">
                 {watchlist.length}
               </span>

@@ -33,7 +33,7 @@ export function MovieList({
     <div className="space-y-4">
       {/* Title */}
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">{title}</h2>
+        <h2 className="text-2xl font-bold dark:text-[#b8336a]">{title}</h2>
         <div className="flex space-x-2">
           <Button
             variant="outline"
@@ -41,7 +41,7 @@ export function MovieList({
             onClick={() => scroll("left")}
             className="rounded-full"
           >
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeft className="h-4 w-4 dark:text-[#b8336a]" />
           </Button>
           <Button
             variant="outline"
@@ -49,7 +49,7 @@ export function MovieList({
             onClick={() => scroll("right")}
             className="rounded-full"
           >
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="h-4 w-4 dark:text-[#b8336a]" />
           </Button>
         </div>
       </div>

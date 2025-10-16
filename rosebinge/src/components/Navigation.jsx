@@ -31,7 +31,7 @@ export default function Navigation({
           <div className="flex items-center">
             <button
               onClick={onHomeClick}
-              className="text-3xl font-bold bg-gradient-to-r from-red-600 via-yellow-500 to-pink-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+              className="text-3xl font-bold bg-gradient-to-r from-[#b8336a] via-yellow-500 to-pink-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
             >
               RoseBinge
             </button>
@@ -60,11 +60,17 @@ export default function Navigation({
           <div className="hidden md:flex items-center space-x-4">
             <Button
               variant="ghost"
-              size="icon"
-              onClick={onWatchlistClick}
-              className="relative"
+              onClick={onHomeClick}
+              className="dark:text-[#b8336a]"
             >
-              <Bookmark className="h-5 w-5" />
+              Home
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={onWatchlistClick}
+              className=" relative dark:text-[#b8336a]"
+            >
+              WatchList
               {watchlistCount > 0 && (
                 <div className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center">
                   {watchlistCount > 9 ? "9+" : watchlistCount}
@@ -73,22 +79,26 @@ export default function Navigation({
             </Button>
             <Button
               variant="ghost"
-              size="icon"
               onClick={() => setDarkMode(!darkMode)}
+              className=" relative dark:text-[#b8336a]"
             >
               {darkMode ? (
-                <Sun className="h-5 w-5" />
+                <span>Light Mode</span>
               ) : (
-                <Moon className="h-5 w-5" />
+                <span className=" dark:text-[#b8336a]">Dark Mode</span>
               )}
             </Button>
-            <Button variant="ghost" size="icon" onClick={onProfileClick}>
-              <User className="h-5 w-5" />
+            <Button
+              variant="ghost"
+              onClick={onProfileClick}
+              className=" relative dark:text-[#b8336a]"
+            >
+              Profile
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="md:hidden dark:text-[#b8336a]">
             <Button
               variant="ghost"
               size="icon"
@@ -105,7 +115,7 @@ export default function Navigation({
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-border">
+          <div className="md:hidden border-t border-border ">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {/* Mobile Search */}
               <form onSubmit={handleSearchSubmit} className="mb-4">
