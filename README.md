@@ -45,12 +45,12 @@ Follow these steps to run RoseBinge locally:
 
 1️⃣ Clone the repository
 bash
-Copy code
+
 git clone https://github.com/yourusername/rosebinge.git
 cd rosebinge
 2️⃣ Install dependencies
 bash
-Copy code
+
 npm install
 3️⃣ Configure environment variables
 Create a .env file in the root directory and add your OMDb API key:
@@ -82,7 +82,7 @@ Renders a responsive grid of MovieCard components.
 🔹 MovieCard.jsx
 Displays poster, title, year, and rating — includes hover animations and a modal trigger.
 
-🔹 MovieDetailModal.jsx
+🔹 MovieDetailsModal.jsx
 Shows detailed movie information fetched from the API (plot, cast, genre, rating).
 
 ⚙️ API Integration
@@ -131,7 +131,7 @@ Frontend debugging and error handling best practices
 Rosemond Ampomah
 Aspiring Software Developer | Frontend Engineer | Product Design Enthusiast
 🔗 LinkedIn
-📧 rosemond@example.com (replace with your email)
+📧 www.linkedin.com/in/rosemond-ampomah
 
 🏆 Acknowledgements
 OMDb API for the movie data.
@@ -146,10 +146,7 @@ You are free to use, modify, and distribute it under the same terms.
 
 "Built with ❤️ and creativity by Rosemond as part of the ALX Frontend Capstone Project."
 
-yaml
-Copy code
 
----
 
 Would you like me to include a **"Performance Optimization"** section (explaining lazy loading, image optimization, and clean state updates)?
 That would make your README stand out to **recruiters and ALX reviewers** alike.
