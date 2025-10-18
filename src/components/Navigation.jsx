@@ -33,7 +33,7 @@ export default function Navigation({
           <div className="flex items-center">
             <button
               onClick={onHomeClick}
-              className="text-3xl font-bold bg-gradient-to-r from-[#b8336a] via-yellow-500 to-pink-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+              className="text-3xl font-bold text-[#b8336a] bg-clip-text text-transparent hover:opacity-80 transition-opacity"
             >
               RoseBinge
             </button>

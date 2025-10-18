@@ -39,7 +39,7 @@ export default function MovieCard({
         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
           <div className="flex space-x-2">
             <Button size="icon" variant="secondary" className="rounded-full">
-              <Play className="h-4 w-4" />
+              <Play className="h-4 w-4 text-[#b8336a]" />
             </Button>
             <Button
               size="icon"
@@ -50,7 +50,7 @@ export default function MovieCard({
                 onAddToWatchlist(movie);
               }}
             >
-              <Plus className="h-4 w-4" />
+              <Plus className="h-4 w-4 text-[#b8336a]" />
             </Button>
           </div>
         </div>
@@ -69,8 +69,8 @@ export default function MovieCard({
         {/* Year Badge */}
         <div className="absolute top-2 right-2">
           <Badge
-            variant="outline"
-            className="bg-black/70 text-white border-white/30"
+            variant="secondary"
+            className="bg-black/70 text-secondary border-0"
           >
             {movie.year}
           </Badge>
