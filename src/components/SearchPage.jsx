@@ -10,8 +10,10 @@ export function SearchPage({ onSelectMovie, onAddToWatchlist, watchlist }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
   const [recentSearches, setRecentSearches] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [suggestions, setSuggestions] = useState([]); // ← NEW: Live suggestions
 
   // Load recent searches from localStorage
   useEffect(() => {
@@ -20,6 +22,26 @@ export function SearchPage({ onSelectMovie, onAddToWatchlist, watchlist }) {
       setRecentSearches(JSON.parse(saved));
     }
   }, []);
+
+  // Debounced search for live suggestions
+  useEffect(() => {
+    if (searchQuery.trim().length < 2) {
+      setSuggestions([]);
+      return;
+    }
+
+    const debounceTimer = setTimeout(async () => {
+      try {
+        const { movies } = await searchMoviesByTitle(searchQuery);
+        setSuggestions(movies.slice(0, 5)); // Show top 5 suggestions
+      } catch (error) {
+        console.error("Suggestion error:", error);
+        setSuggestions([]);
+      }
+    }, 300); // Wait 300ms after user stops typing
+
+    return () => clearTimeout(debounceTimer);
+  }, [searchQuery]);
 
   // Save recent searches to localStorage
   const saveRecentSearch = (query) => {
@@ -35,11 +57,13 @@ export function SearchPage({ onSelectMovie, onAddToWatchlist, watchlist }) {
   const handleSearch = async (query) => {
     if (!query.trim()) {
       setSearchResults([]);
+      setHasSearched(false);
       return;
     }
 
     setIsSearching(true);
     setShowSuggestions(false);
+    setHasSearched(false);
     saveRecentSearch(query);
 
     try {
@@ -50,6 +74,7 @@ export function SearchPage({ onSelectMovie, onAddToWatchlist, watchlist }) {
       setSearchResults([]);
     } finally {
       setIsSearching(false);
+      setHasSearched(true);
     }
   };
 
@@ -65,10 +90,19 @@ export function SearchPage({ onSelectMovie, onAddToWatchlist, watchlist }) {
     handleSearch(suggestion);
   };
 
+  // ← NEW: Handle movie selection from suggestions
+  const handleMovieSelect = (movie) => {
+    setSearchQuery(movie.title);
+    setShowSuggestions(false);
+    onSelectMovie(movie);
+  };
+
   // Clear search
   const handleClear = () => {
     setSearchQuery("");
     setSearchResults([]);
+    setHasSearched(false);
+    setSuggestions([]);
   };
 
   // Popular search suggestions
@@ -100,6 +134,7 @@ export function SearchPage({ onSelectMovie, onAddToWatchlist, watchlist }) {
                 setShowSuggestions(true);
               }}
               onFocus={() => setShowSuggestions(true)}
+              onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
               className="w-full h-14 pl-12 pr-12 text-lg bg-input-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
             />
             {searchQuery && (
@@ -114,49 +149,99 @@ export function SearchPage({ onSelectMovie, onAddToWatchlist, watchlist }) {
           </div>
 
           {/* Suggestions Dropdown */}
-          {showSuggestions && !isSearching && searchQuery.length === 0 && (
-            <div className="absolute top-full left-0 right-0 mt-2 bg-card border border-border rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto">
-              {/* Recent Searches */}
-              {recentSearches.length > 0 && (
+          {showSuggestions && (
+            <div className="absolute top-full left-0 right-0 mt-2 bg-card border border-border rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto">
+              {/* Live Movie Suggestions */}
+              {searchQuery.length >= 2 && suggestions.length > 0 && (
                 <div className="p-2">
                   <div className="flex items-center space-x-2 px-3 py-2 text-sm text-muted-foreground">
-                    <Clock className="h-4 w-4" />
-                    <span>Recent Searches</span>
+                    <Search className="h-4 w-4" />
+                    <span>Suggestions</span>
                   </div>
-                  {recentSearches.map((search, index) => (
+                  {suggestions.map((movie) => (
                     <button
-                      key={index}
-                      onClick={() => handleSuggestionClick(search)}
+                      key={movie.id}
+                      onClick={() => handleMovieSelect(movie)}
                       className="w-full text-left px-3 py-2 hover:bg-muted rounded-md transition-colors"
                     >
                       <div className="flex items-center space-x-3">
-                        <Clock className="h-4 w-4 text-muted-foreground" />
-                        <span>{search}</span>
+                        {movie.poster && movie.poster !== "N/A" ? (
+                          <img
+                            src={movie.poster}
+                            alt={movie.title}
+                            className="w-10 h-14 object-cover rounded"
+                          />
+                        ) : (
+                          <div className="w-10 h-14 bg-muted rounded flex items-center justify-center">
+                            <Search className="h-4 w-4 text-muted-foreground" />
+                          </div>
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium truncate">{movie.title}</p>
+                          <p className="text-sm text-muted-foreground">
+                            {movie.year}
+                          </p>
+                        </div>
                       </div>
                     </button>
                   ))}
                 </div>
               )}
 
-              {/* Popular Searches */}
-              <div className="p-2">
-                <div className="flex items-center space-x-2 px-3 py-2 text-sm text-muted-foreground">
-                  <TrendingUp className="h-4 w-4" />
-                  <span>Popular Searches</span>
+              {/* Show when typing but no results yet */}
+              {searchQuery.length >= 2 && suggestions.length === 0 && (
+                <div className="p-4 text-center text-sm text-muted-foreground">
+                  <Search className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                  <p>Fetching suggestions...</p>
                 </div>
-                {popularSearches.map((search, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleSuggestionClick(search)}
-                    className="w-full text-left px-3 py-2 hover:bg-muted rounded-md transition-colors"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                      <span>{search}</span>
+              )}
+
+              {/* Recent & Popular when no search query */}
+              {searchQuery.length === 0 && (
+                <>
+                  {/* Recent Searches */}
+                  {recentSearches.length > 0 && (
+                    <div className="p-2">
+                      <div className="flex items-center space-x-2 px-3 py-2 text-sm text-muted-foreground">
+                        <Clock className="h-4 w-4" />
+                        <span>Recent Searches</span>
+                      </div>
+                      {recentSearches.map((search, index) => (
+                        <button
+                          key={index}
+                          onClick={() => handleSuggestionClick(search)}
+                          className="w-full text-left px-3 py-2 hover:bg-muted rounded-md transition-colors"
+                        >
+                          <div className="flex items-center space-x-3">
+                            <Clock className="h-4 w-4 text-muted-foreground" />
+                            <span>{search}</span>
+                          </div>
+                        </button>
+                      ))}
                     </div>
-                  </button>
-                ))}
-              </div>
+                  )}
+
+                  {/* Popular Searches */}
+                  <div className="p-2">
+                    <div className="flex items-center space-x-2 px-3 py-2 text-sm text-muted-foreground">
+                      <TrendingUp className="h-4 w-4" />
+                      <span>Popular Searches</span>
+                    </div>
+                    {popularSearches.map((search, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleSuggestionClick(search)}
+                        className="w-full text-left px-3 py-2 hover:bg-muted rounded-md transition-colors"
+                      >
+                        <div className="flex items-center space-x-3">
+                          <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                          <span>{search}</span>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           )}
         </form>
@@ -190,17 +275,20 @@ export function SearchPage({ onSelectMovie, onAddToWatchlist, watchlist }) {
         </div>
       )}
 
-      {!isSearching && searchQuery && searchResults.length === 0 && (
-        <div className="text-center py-12">
-          <Search className="h-16 w-16 mx-auto text-muted-foreground mb-4 opacity-50" />
-          <p className="text-muted-foreground">
-            No results found for "{searchQuery}"
-          </p>
-          <p className="text-sm text-muted-foreground mt-2">
-            Try a different search term
-          </p>
-        </div>
-      )}
+      {!isSearching &&
+        hasSearched &&
+        searchQuery &&
+        searchResults.length === 0 && (
+          <div className="text-center py-12">
+            <Search className="h-16 w-16 mx-auto text-muted-foreground mb-4 opacity-50" />
+            <p className="text-muted-foreground">
+              No results found for "{searchQuery}"
+            </p>
+            <p className="text-sm text-muted-foreground mt-2">
+              Try a different search term
+            </p>
+          </div>
+        )}
     </div>
   );
 }

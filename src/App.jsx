@@ -154,6 +154,8 @@ export default function App() {
         onSearch={handleSearch}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
+        setCurrentView={setCurrentView}
+        currentView={currentView}
         onWatchlistClick={() => setCurrentView("watchlist")}
         watchlistCount={watchlist.length}
         onProfileClick={() => setCurrentView("profile")}
@@ -202,19 +204,6 @@ export default function App() {
                   onSelectMovie={setSelectedMovie}
                   onAddToWatchlist={handleAddToWatchlist}
                   watchlist={watchlist}
-                />
-
-                {/* Movie Details Modal */}
-                <MovieDetailsModal
-                  movie={selectedMovie}
-                  isOpen={!!selectedMovie}
-                  onClose={() => setSelectedMovie(null)}
-                  onAddToWatchlist={handleAddToWatchlist}
-                  isInWatchlist={
-                    selectedMovie
-                      ? watchlist.some((w) => w.id === selectedMovie.id)
-                      : false
-                  }
                 />
 
                 {/* Explore Button */}
@@ -311,6 +300,19 @@ export default function App() {
           </div>
         )}
       </main>
+
+      {/* Movie Details Modal */}
+      <MovieDetailsModal
+        movie={selectedMovie}
+        isOpen={!!selectedMovie}
+        onClose={() => setSelectedMovie(null)}
+        onAddToWatchlist={handleAddToWatchlist}
+        isInWatchlist={
+          selectedMovie
+            ? watchlist.some((w) => w.id === selectedMovie.id)
+            : false
+        }
+      />
 
       {/* Mobile Bottom Navigation */}
       <MobileBottomNav

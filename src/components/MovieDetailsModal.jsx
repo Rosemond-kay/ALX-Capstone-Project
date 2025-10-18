@@ -85,11 +85,17 @@ export function MovieDetailsModal({
                     <Star className="h-3 w-3 mr-1 fill-yellow-400 text-yellow-400" />
                     {movie.rating.toFixed(1)}
                   </Badge>
-                  <Badge variant="outline">{movie.year}</Badge>
+                  <Badge variant="outline" className="bg-white">
+                    {movie.year}
+                  </Badge>
                   {movie.rated && (
-                    <Badge variant="outline">{movie.rated}</Badge>
+                    <Badge variant="outline" className="bg-white">
+                      {movie.rated}
+                    </Badge>
                   )}
-                  <Badge variant="outline">{movie.duration}</Badge>
+                  <Badge variant="outline" className="bg-white">
+                    {movie.duration}
+                  </Badge>
                 </div>
               </div>
 
