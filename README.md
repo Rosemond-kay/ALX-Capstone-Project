@@ -1,111 +1,156 @@
-# 🎬 RoseBinge
+# 🎬 RoseBinge — Movie Discovery App
 
-**RoseBinge** is a sleek and feminine movie database web app built with **React** and **TailwindCSS**.  
-It allows users to search, explore, and view details of their favorite movies using the **OMDb API**.  
-The design blends bold minimalism with subtle luxury — dark, modern, and emotionally elegant.
+**RoseBinge** is a responsive movie discovery web application built with **React** and **Tailwind CSS**, powered by the **OMDb API**.  
+It allows users to explore, search, and view detailed information about their favorite movies in a sleek, Netflix-inspired interface.
 
 ---
 
 ## 🌟 Features
 
-### 🔍 Fetch Movie Data
-
-- Integrates with the [OMDb API](https://www.omdbapi.com/)
-- Displays movie posters, titles, and release years
-- Fetches detailed movie info (plot, cast, ratings, and genre)
-
-### 🎥 Movie Details View
-
-- Click on a movie card to view full details
-- Shows:
-  - Plot summary
-  - Main cast
-  - Ratings (IMDb, Rotten Tomatoes, etc.)
-  - Genre tags
-
-### 🔎 Smart Search Functionality
-
-- Real-time search filtering
-- Graceful “No results found” message for unmatched queries
-
-### 📱 Responsive Design
-
-- Fully responsive for desktop, tablet, and mobile
-- Designed with TailwindCSS for simplicity and scalability
-
-### ⚙️ Error Handling
-
-- Handles API/network errors with clear messages
-- Prevents app crashes from invalid inputs or empty responses
+- **🎞️ Movie Search:** Search movies and shows using live data from the OMDb API.
+- **🧾 Detailed Movie View:** View detailed information such as plot, cast, rating, and genre.
+- **📱 Responsive Design:** Optimized layouts for mobile, tablet, and desktop screens.
+- **💬 User-Friendly Interface:** Clean UI with interactive hover effects and modals.
+- **⚙️ Error Handling:** Graceful fallbacks for empty search results or API errors.
+- **⭐ Custom Elements:** Star ratings and icons built using pure CSS and Unicode — no third-party icon libraries.
 
 ---
 
-## 🧩 Tech Stack
+## 🧩 Project Structure
 
-| Technology       | Description                             |
-| ---------------- | --------------------------------------- |
-| **React**        | Frontend library for UI rendering       |
-| **Tailwind CSS** | Utility-first CSS framework for styling |
-| **OMDb API**     | Movie data provider                     |
-| **Vite**         | Lightning-fast React development setup  |
+```bash
+src/
+ ├── components/
+ │   ├── HeroSection.jsx
+ │   ├── MovieList.jsx
+ │   ├── MovieCard.jsx
+ │   ├── MovieDetailModal.jsx
+ │   └── SearchBar.jsx
+ ├── App.jsx
+ ├── index.css
+ └── main.jsx
+Each component is modular and reusable, following React’s best practices for maintainable frontend architecture.
 
----
+🧠 Technologies Used
+Category	Tools
+Frontend Framework	React (Vite)
+Styling	Tailwind CSS
+API	OMDb API
+Language	JavaScript (ES6+)
+Build Tool	Vite
+Version Control	Git & GitHub
 
-## 💄 Color Theme
+🚀 Getting Started
+Follow these steps to run RoseBinge locally:
 
-| Mode      | Primary              | Accent  | Background           | Text    |
-| --------- | -------------------- | ------- | -------------------- | ------- |
-| **Light** | #B83280 (Rose Pink)  | #3B3B98 | #F8F7F4 (Soft White) | #1A1A1A |
-| **Dark**  | #F6C1D7 (Dusty Pink) | #7F5AF0 | #0F0E17              | #EDEDED |
-
----
-
-## ⚡ Getting Started
-
-### 1️⃣ Clone the repository
-
-git clone https://github.com/<your-username>/RoseBinge.git
-cd RoseBinge
+1️⃣ Clone the repository
+bash
+Copy code
+git clone https://github.com/yourusername/rosebinge.git
+cd rosebinge
 2️⃣ Install dependencies
-
+bash
+Copy code
 npm install
+3️⃣ Configure environment variables
+Create a .env file in the root directory and add your OMDb API key:
 
-3️⃣ Create a .env file
-Create a file named .env in the project root and add your OMDb API key:
-
+bash
+Copy code
 VITE_OMDB_API_KEY=your_api_key_here
-4️⃣ Run the development server
-
+4️⃣ Run the app
+bash
+Copy code
 npm run dev
+Visit http://localhost:5173 to view the app in your browser.
 
-Then visit ➜ http://localhost:5173
+📱 UI Preview
+Desktop	Mobile
 
-🧠 Future Improvements
-Add user authentication and watchlist
+(Replace with your actual screenshots)
 
-Implement movie trailers (YouTube API)
+🧩 Key Components Overview
+🔹 HeroSection.jsx
+Displays the featured movie section with a gradient overlay, app title, and quick actions (Play, Watchlist, Info).
 
-Add “Top Rated” and “Trending” sections
+🔹 SearchBar.jsx
+Captures user input and triggers API calls to fetch movie data. Clicking activates the search page immediately.
 
-Support theme switching (Light/Dark)
+🔹 MovieList.jsx
+Renders a responsive grid of MovieCard components.
 
-Enhance with pagination or infinite scroll
+🔹 MovieCard.jsx
+Displays poster, title, year, and rating — includes hover animations and a modal trigger.
 
-💗 Inspiration
-RoseBinge was designed to express:
+🔹 MovieDetailModal.jsx
+Shows detailed movie information fetched from the API (plot, cast, genre, rating).
 
-“Luxury, femininity, and cinematic passion — in one scroll.”
+⚙️ API Integration
+The app uses the OMDb API for fetching movie data:
+
+js
+Copy code
+fetch(`https://www.omdbapi.com/?apikey=${import.meta.env.VITE_OMDB_API_KEY}&s=${searchQuery}`)
+  .then(res => res.json())
+  .then(data => setMovies(data.Search || []))
+  .catch(error => setError("Something went wrong."));
+🧪 Error Handling
+Displays "No results found" when the search returns empty.
+
+Catches network or API errors and shows a user-friendly message.
+
+Handles missing poster images gracefully with fallback placeholders.
+
+🎨 Design System
+RoseBinge follows a consistent design language:
+
+Primary Color: Deep Rose #B8336A
+
+Accent Color: Golden Yellow #FFD166
+
+Typography: Modern, bold headings with clean sans-serif body text
+
+Theme: Light and dark palette variants
+
+Animations: Smooth hover transitions using Tailwind utilities
+
+🧠 Learning Outcomes
+This project demonstrates:
+
+State management using React Hooks (useState, useEffect)
+
+Integration of external APIs
+
+Component-based architecture design
+
+Tailwind CSS for scalable and responsive styling
+
+Frontend debugging and error handling best practices
 
 🧑‍💻 Author
 Rosemond Ampomah
-Aspiring Software Developer & Designer
-LinkedIn
+Aspiring Software Developer | Frontend Engineer | Product Design Enthusiast
+🔗 LinkedIn
+📧 rosemond@example.com (replace with your email)
 
-🪪 License
-This project is licensed under the MIT License — feel free to use and modify it with credit.
+🏆 Acknowledgements
+OMDb API for the movie data.
 
-⭐ If you like this project, give it a star on GitHub to support future updates!
+ALX Africa for mentorship and program guidance.
+
+Inspiration from streaming platforms like Netflix and IMDb.
+
+📜 License
+This project is licensed under the MIT License.
+You are free to use, modify, and distribute it under the same terms.
+
+"Built with ❤️ and creativity by Rosemond as part of the ALX Frontend Capstone Project."
+
+yaml
+Copy code
 
 ---
 
-Would you like me to make this README even more **aesthetic and branded** (with badges, screenshots, and section dividers) for a polished GitHub portfolio presentation?
+Would you like me to include a **"Performance Optimization"** section (explaining lazy loading, image optimization, and clean state updates)?
+That would make your README stand out to **recruiters and ALX reviewers** alike.
+```
